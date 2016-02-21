@@ -4,10 +4,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Welcome <%= request.getParameter("username") %></title>
+
+<%
+	/* Store username to session. */
+	request.getSession().setAttribute("username", request.getParameter("username"));
+%>
+<title>Welcome <%= request.getSession().getAttribute("username") %></title>
 </head>
 <body>
-<h1>Welcome <%= request.getParameter("username") %></h1>
+<h1>Welcome <%= request.getSession().getAttribute("username") %></h1>
+<p><a href="message.jsp">Message</a></p>
 <p><a href="QuizPage.jsp">Quiz Page</a></p>
 </body>
 </html>
