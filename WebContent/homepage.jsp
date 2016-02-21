@@ -8,5 +8,6 @@
 </head>
 <body>
 <h1>Welcome <%= request.getParameter("username") %></h1>
+<p><a href="QuizPage.jsp">Quiz Page</a></p>
 </body>
 </html>
