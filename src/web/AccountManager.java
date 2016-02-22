@@ -43,6 +43,7 @@ public class AccountManager {
 		}
 		
 		/* Should not reach here. */
+		assert false;
 		return false;
 	}
 	
@@ -65,6 +66,7 @@ public class AccountManager {
 		}
 		
 		/* Should not reach here. */
+		assert false;
 		return false;
 	}
 	
@@ -94,7 +96,5 @@ public class AccountManager {
 		}
 		return result;
 	}
-	
-	
 	
 }

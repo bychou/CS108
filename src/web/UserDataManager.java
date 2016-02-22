@@ -33,7 +33,7 @@ public class UserDataManager {
 		try {
 			/* Check if the receiver exist. */
 			if (!accountManager.accountExist(toUser)) {
-				return "(" + timeStamp + ") The receiver you entered does not exist.";
+				return "(" + timeStamp + ") The user " + toUser + " does not exist.";
 			}
 			
 
@@ -62,12 +62,12 @@ public class UserDataManager {
 
 	public String sendFriendRequest(String fromUser, String toUser, String message) {
 		String timeStamp = getTimeStamp();
-		String returnStatus = "(" + timeStamp + ") Request successfully sent.";
+		String returnStatus = "(" + timeStamp + ") Request successfully sent to user" + toUser + ".";
 		
 		try {
 			/* Check if the receiver exist. */
 			if (!accountManager.accountExist(toUser)) {
-				return "(" + timeStamp + "), The receiver you entered does not exist.";
+				return "(" + timeStamp + "), The user " + toUser + " does not exist.";
 			}
 			
 			/* Prevent user from sending request to himself. */
@@ -78,21 +78,19 @@ public class UserDataManager {
 			/* Check if user sent this request before. */
 			ResultSet rs = stmt.executeQuery("SELECT * FROM friendRequests WHERE fromUser = \"" + fromUser + "\" AND toUser = \"" + toUser + "\";");
 			if (rs.isBeforeFirst()) {
-				return "(" + timeStamp + ") You have already sent a request to this receiver.";
+				return "(" + timeStamp + ") You have already sent a request to " + toUser + ".";
 			}
 			
 			/* Check if receiver already sent you a request. */
 			rs = stmt.executeQuery("SELECT * FROM friendRequests WHERE fromUser = \"" + toUser + "\" AND toUser = \"" + fromUser + "\";");
 			if (rs.isBeforeFirst()) {
-				return "(" + timeStamp + ") The receiver already sent you a request.";
-			}
-			
-			
+				return "(" + timeStamp + ")" + toUser + " already sent you a request.";
+			}	
 			
 			/* Check if friendship already exist. */
-			rs = stmt.executeQuery("SELECT * FROM friends WHERE fromUser = \"" + fromUser + "\" AND toUser = \"" + toUser + "\";");
+			
 			if (rs.isBeforeFirst()) {
-				return "(" + timeStamp + ") The receiver and you are already firends.";
+				return "(" + timeStamp + ") " + toUser + " and you are already firends.";
 			}
 					
 			/* Insert friendRequest. */
@@ -122,6 +120,33 @@ public class UserDataManager {
 		}
 		
 		return returnStatus;		
+	}
+	
+	public ResultSet searchUsers(String str) {
+		ResultSet rs = null;
+		try {
+			System.out.println("SELECT * FROM accounts WHERE username LIKE \"%" + str + "%\";");
+			rs = stmt.executeQuery("SELECT * FROM accounts WHERE username LIKE \"%" + str + "%\";");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+		
+	}
+	
+	public boolean areFriends(String user1, String user2) {
+		try {
+			ResultSet rs = stmt.executeQuery("SELECT * FROM friends WHERE fromUser = \"" + user1 + "\" AND toUser = \"" + user2 + "\";");
+			return rs.isBeforeFirst();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		/* Should not reach here. */
+		assert false;
+		return false;
 	}
 	
 	private String getTimeStamp() {

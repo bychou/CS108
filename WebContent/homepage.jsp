@@ -16,5 +16,6 @@
 <p><a href="message.jsp">Message</a></p>
 <p><a href="friendRequest.jsp">Friend Request</a></p>
 <p><a href="QuizPage.jsp">Quiz Page</a></p>
+<p><a href="searchUsers.jsp">Find Players</a></p>
 </body>
 </html>
