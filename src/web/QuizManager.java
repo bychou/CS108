@@ -12,14 +12,14 @@ public class QuizManager {
 		this.stmt = stmt;
 	}
 	
-	public int createQuiz(String quizSubject, String quizDescription, String creatorName, 
+	public int createQuiz(String quizTitle, String quizDescription, String quizCategory, String creatorName, 
 							String dateCreated, boolean isRandom, boolean isOnePage,
 							boolean isPracticeMode, int numQuestions) {
 		try {
 			ResultSet rs = stmt.executeQuery("SELECT * FROM quizzes");
 			rs.last();
 			int quizNumber = rs.getRow() + 1;
-			String qry = "INSERT INTO quizzes VALUES (" + quizNumber + ", \"" + quizSubject + "\", \"" + quizDescription + "\", \"" + creatorName
+			String qry = "INSERT INTO quizzes VALUES (" + quizNumber + ", \"" + quizTitle + "\", \"" + quizDescription + "\", \"" + quizCategory + "\", \"" + creatorName
 			+ "\", \"" + dateCreated + "\", '" + isRandom + "', '" + isOnePage + "', '" + isPracticeMode + "'," + numQuestions + ")";
 			System.out.println(qry);
 			stmt.executeUpdate(qry);

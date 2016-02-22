@@ -11,8 +11,9 @@
 <h1>New Quiz Creator</h1>
 <p>Please fill in below detail: </p>
 <form action="QuizCreatorServlet" method="post">
-<p>Quiz subject:<input type="text" name="quizSubject"></p>
+<p>Quiz title:<input type="text" name="quizTitle"></p>
 <p>Quiz description:<input type="text" name="quizDescription"></p>
+<p>Quiz category:<input type="text" name="quizCategory"></p>
 <input name="quizCreator" type="hidden" value="<%= request.getSession().getAttribute("username") %>"/>
 <input name="quizDate" type="hidden" value="<%= new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date()) %>"/>
 <p><input type="checkbox" name="preferences" value="random"> Random Order</p>

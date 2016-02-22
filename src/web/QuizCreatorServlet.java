@@ -42,8 +42,9 @@ public class QuizCreatorServlet extends HttpServlet {
 		ServletContext sc = request.getServletContext();
 		QuizManager QzManager = (QuizManager) request.getServletContext().getAttribute("Quiz Manager");
 		
-		String quizSubject = request.getParameter("quizSubject");
+		String quizTitle = request.getParameter("quizTitle");
 		String quizDescription = request.getParameter("quizDescription");
+		String quizCategory = request.getParameter("quizCategory");
 		String creatorName = request.getParameter("quizCreator");
 		String dateCreated = request.getParameter("quizDate");
 		String[] options = request.getParameterValues("preferences");
@@ -60,7 +61,7 @@ public class QuizCreatorServlet extends HttpServlet {
 			}
 		}
 		int numQuestions = Integer.parseInt(request.getParameter("numQuestion"));
-		int quizNum = QzManager.createQuiz(quizSubject, quizDescription, creatorName, dateCreated, isRandom, isOnePage, isPracticeMode, numQuestions);
+		int quizNum = QzManager.createQuiz(quizTitle, quizDescription, quizCategory, creatorName, dateCreated, isRandom, isOnePage, isPracticeMode, numQuestions);
 		session.setAttribute("quizNumber", quizNum);
 		session.setAttribute("currentQuestion", 1);
 		session.setAttribute("numQuestion", numQuestions);

@@ -12,20 +12,20 @@
 <h2>Add Question <%= request.getSession().getAttribute("currentQuestion") %> of <%= request.getSession().getAttribute("numQuestion") %> </h2>
 <p>Select Question type to be added from below:</p>
 <form action="QuestionServlet" method="post">
-<p><input name="questionType" type="hidden" value="QuestionResponse"/>
-<input type="submit" value="Question-Response"></p>
+<p><input name="questionType" type="hidden" value="question-response"/>
+<input type="submit" value="question-response"></p>
 </form>
 <form action="QuestionServlet" method="post">
-<p><input name="questionType" type="hidden" value="FillBlank"/>
-<input type="submit" value="Fill in the Blank"></p>
+<p><input name="questionType" type="hidden" value="fill-in-blank"/>
+<input type="submit" value="fill-in-blank"></p>
 </form>
 <form action="QuestionServlet" method="post">
-<p><input name="questionType" type="hidden" value="MultipleChoice"/>
-<input type="submit" value="Multiple Choice"></p>
+<p><input name="questionType" type="hidden" value="multiple-choice"/>
+<input type="submit" value="multiple-choice"></p>
 </form>
 <form action="QuestionServlet" method="post">
-<p><input name="questionType" type="hidden" value="PictureResponse"/>
-<input type="submit" value="Picture-Response Questions"></p>
+<p><input name="questionType" type="hidden" value="picture-response"/>
+<input type="submit" value="picture-response"></p>
 </form>
 </body>
 </html>
