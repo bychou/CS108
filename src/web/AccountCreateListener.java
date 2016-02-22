@@ -34,8 +34,9 @@ public class AccountCreateListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent arg0)  { 
     	con = new DBConnection();
     	con.openDB();
-    	arg0.getServletContext().setAttribute("User Data Manager", new UserDataManager(con.getStatement()));
-    	arg0.getServletContext().setAttribute("Account Manager", new AccountManager(con.getStatement()));
+    	AccountManager accountManager = new AccountManager(con.getStatement());
+    	arg0.getServletContext().setAttribute("Account Manager", accountManager);
+    	arg0.getServletContext().setAttribute("User Data Manager", new UserDataManager(con.getStatement(), accountManager));
  
          // TODO Auto-generated method stub
     }

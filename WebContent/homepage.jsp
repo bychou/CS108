@@ -14,6 +14,7 @@
 <body>
 <h1>Welcome <%= request.getSession().getAttribute("username") %></h1>
 <p><a href="message.jsp">Message</a></p>
+<p><a href="friendRequest.jsp">Friend Request</a></p>
 <p><a href="QuizPage.jsp">Quiz Page</a></p>
 </body>
 </html>

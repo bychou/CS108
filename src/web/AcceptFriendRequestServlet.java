@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class FriendRequestServlet
+ * Servlet implementation class AcceptFriendRequestServlet
  */
-@WebServlet("/FriendRequestServlet")
-public class FriendRequestServlet extends HttpServlet {
+@WebServlet("/AcceptFriendRequestServlet")
+public class AcceptFriendRequestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FriendRequestServlet() {
+    public AcceptFriendRequestServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,7 +28,6 @@ public class FriendRequestServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doPost(request, response);
 	}
 
@@ -36,20 +35,17 @@ public class FriendRequestServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String fromUser = (String) request.getSession().getAttribute("username");
-		String toUser = (String) request.getParameter("toUser");
-		String message = (String) request.getParameter("message");
+		String toUser = (String) request.getSession().getAttribute("username");
+		String fromUser = (String) request.getParameter("fromUser");
 		
-		/* Send friend request via User Data Manager. */
-		UserDataManager userDataManager =   (UserDataManager) request.getServletContext().getAttribute("User Data Manager");
+		/* Accept friend request via user data manager. */
+		UserDataManager userDataManager = (UserDataManager) request.getServletContext().getAttribute("User Data Manager");
+		String returnStatus = userDataManager.acceptFriendRequest(fromUser, toUser);
 		
-		String returnStatus = userDataManager.sendFriendRequest(fromUser, toUser, message);
-		request.setAttribute("Return Status", returnStatus);
-		
+		/* Sending back return status. */
+		request.setAttribute("Return Status", returnStatus);		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("friendRequest.jsp");
 		dispatcher.forward(request, response);
-		
-		
 	}
 
 }

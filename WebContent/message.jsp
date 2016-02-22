@@ -5,14 +5,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<% String username = (String) request.getSession().getAttribute("username"); %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title><%= request.getSession().getAttribute("username") %>'s message</title>
+<title><%= username %>'s message</title>
 </head>
 <body>
 	<%
 		
 		UserDataManager userDataManager = (UserDataManager) request.getServletContext().getAttribute("User Data Manager");
-		ResultSet rs = userDataManager.getUserMessages((String)request.getSession().getAttribute("username"));
+		ResultSet rs = userDataManager.getUserMessages(username);
 		
 		
 		out.println("<h2>Your Message</h2>");

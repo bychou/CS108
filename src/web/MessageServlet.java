@@ -34,8 +34,7 @@ public class MessageServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		String fromUser = (String) request.getSession().getAttribute("username");
 		String toUser = (String) request.getParameter("toUser");
 		String message = (String) request.getParameter("message");

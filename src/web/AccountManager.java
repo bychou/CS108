@@ -36,8 +36,7 @@ public class AccountManager {
 	public boolean accountExist (String username) {
 		try {
 			ResultSet rs = stmt.executeQuery("SELECT * FROM accounts WHERE username = \"" + username + "\";");
-			rs.last();
-			return rs.getRow() >= 1;
+			return rs.isBeforeFirst();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
