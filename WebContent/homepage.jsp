@@ -28,12 +28,16 @@
 	UserDataManager userDataManager = (UserDataManager) request.getServletContext().getAttribute("User Data Manager");
 	ResultSet rs = userDataManager.getAnnouncements();
 	
-	while (rs.next()) {
+	if (!rs.isBeforeFirst()) {
+		out.println("<p> There is no announcement </p>");
+	} else {
+		while (rs.next()) {
 		String timeStamp = rs.getString("time");
 		String author = rs.getString("username");
 		String announcement = rs.getString("announcement");
 		
 		out.println ("<p>" + timeStamp + " by " + author + ":" + announcement);
+		}
 	}
 %>
 </body>
