@@ -7,6 +7,8 @@
 <title>Quiz Created</title>
 </head>
 <body>
-<h1>Quiz Number <%= (Integer) session.getAttribute("quizNumber") %> succesfully created</h1>
+<h1>Quiz Number <%= (Integer) session.getAttribute("quizNumber") %> succesfully created
+by <%= request.getSession().getAttribute("username") %>
+</h1>
 </body>
 </html>

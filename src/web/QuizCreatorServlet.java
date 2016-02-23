@@ -51,13 +51,15 @@ public class QuizCreatorServlet extends HttpServlet {
 		boolean isRandom = false;
 		boolean isOnePage = true;
 		boolean isPracticeMode = false;
-		for (String s : options) {
-			if (s.equals("random")) {
-				isRandom = true;
-			} else if (s.equals("multiple")) {
-				isOnePage = false;
-			} else if (s.equals("practice")) {
-				isPracticeMode = true;
+		if (options != null) {
+			for (String s : options) {
+				if (s.equals("random")) {
+					isRandom = true;
+				} else if (s.equals("multiple")) {
+					isOnePage = false;
+				} else if (s.equals("practice")) {
+					isPracticeMode = true;
+				}
 			}
 		}
 		int numQuestions = Integer.parseInt(request.getParameter("numQuestion"));

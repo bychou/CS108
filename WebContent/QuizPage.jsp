@@ -22,12 +22,12 @@
 <li>performer3</li>
 </ul>
 <p>print summary statistics</p>
-<form action="QuizServlet" method="post">
+<form action="QuizPlayServlet" method="post">
 <p>
 <input name="quizType" type="hidden" value="realtest"/>
 <input type="submit" value="Start Quiz" /></p>
 </form>
-<form action="QuizServlet" method="post">
+<form action="QuizPlayServlet" method="post">
 <p>
 <input name="quizType" type="hidden" value="practice"/>
 <input type="submit" value="Start Practice Quiz" /></p>
