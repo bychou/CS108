@@ -98,7 +98,6 @@ public class QuizManager {
 	}
 	
 	public synchronized ResultSet getQuizList() {
-		List<Integer> allQuizList = new ArrayList<Integer>();
 		try {
 			ResultSet rs = stmt.executeQuery("SELECT * FROM quizzes WHERE dateCreated IS NOT NULL");
 			return rs;
