@@ -8,6 +8,10 @@
 </head>
 <body>
 <h1>Quiz Description (Quiz number, Quiz subject, Other description)</h1>
+<%
+	String idName = request.getParameter("id");
+%>
+<p>Quiz id = <%= idName %></p>
 <p>Quiz Creator: <a href="\creator.jsp">url of creator(pulled from database)</a></p>
 <p>List of user's past performance</p>
 <ul>

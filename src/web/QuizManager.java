@@ -5,6 +5,8 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.util.*;
 
+import java.text.SimpleDateFormat;
+
 public class QuizManager {
 	private Statement stmt;
 	
@@ -19,8 +21,10 @@ public class QuizManager {
 			ResultSet rs = stmt.executeQuery("SELECT * FROM quizzes");
 			rs.last();
 			int quizNumber = rs.getRow() + 1;
+			//String qry = "INSERT INTO quizzes VALUES (" + quizNumber + ", \"" + quizTitle + "\", \"" + quizDescription + "\", \"" + quizCategory + "\", \"" + creatorName
+			//+ "\", \"" + dateCreated + "\", '" + isRandom + "', '" + isOnePage + "', '" + isPracticeMode + "'," + numQuestions + ")";
 			String qry = "INSERT INTO quizzes VALUES (" + quizNumber + ", \"" + quizTitle + "\", \"" + quizDescription + "\", \"" + quizCategory + "\", \"" + creatorName
-			+ "\", \"" + dateCreated + "\", '" + isRandom + "', '" + isOnePage + "', '" + isPracticeMode + "'," + numQuestions + ")";
+			+ "\", NULL, '" + isRandom + "', '" + isOnePage + "', '" + isPracticeMode + "'," + numQuestions + ")";
 			System.out.println(qry);
 			stmt.executeUpdate(qry);
 			return quizNumber;
@@ -78,6 +82,30 @@ public class QuizManager {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+	
+	public synchronized void updateQuizCreation(int quizNumber) {
+		try {		
+			String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+			String qry = "UPDATE quizzes SET dateCreated = \"" + timeStamp + "\" WHERE quizId = " + quizNumber;
+			System.out.println(qry);
+			stmt.executeUpdate(qry);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public synchronized ResultSet getQuizList() {
+		List<Integer> allQuizList = new ArrayList<Integer>();
+		try {
+			ResultSet rs = stmt.executeQuery("SELECT * FROM quizzes WHERE dateCreated IS NOT NULL");
+			return rs;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
 		}
 	}
 	

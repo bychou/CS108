@@ -79,6 +79,7 @@ public class AddAnswerServlet extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("AddQuestion.jsp");
 			dispatcher.forward(request, response);
 		} else if (currentQuestion == numQuestions) {
+			QzManager.updateQuizCreation(quizNumber);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("QuizCreated.jsp");
 			dispatcher.forward(request, response);
 		}
