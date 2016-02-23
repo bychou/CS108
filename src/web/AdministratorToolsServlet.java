@@ -1,6 +1,8 @@
 package web;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,14 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class AdministratorToolsServelet
  */
-@WebServlet("/AdministratorToolsServelet")
-public class AdministratorToolsServelet extends HttpServlet {
+@WebServlet("/AdministratorToolsServlet")
+public class AdministratorToolsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdministratorToolsServelet() {
+    public AdministratorToolsServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -49,12 +51,11 @@ public class AdministratorToolsServelet extends HttpServlet {
 		 		returnStatus = userDataManager.promoteUser(username);
 		 		break;
 		 		
-		 }
-		 
-		 
-		 
+		 }	 
 		 
 		 request.setAttribute("Return Status", returnStatus);
+		 RequestDispatcher dispatcher = request.getRequestDispatcher("administratorTools.jsp");
+		 dispatcher.forward(request, response);
 	}
 
 }

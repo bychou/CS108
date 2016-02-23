@@ -42,7 +42,7 @@ public class UserDataManager {
 			stmt.executeUpdate("INSERT INTO messages VALUES (\"" + fromUser + "\",\"" + toUser + "\",\"" + timeStamp + "\",\"" + message + "\");");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			returnStatus = ("(" + timeStamp + ") An DB error occurred while sending meesage: " + e.toString() );
+			returnStatus = ("(" + timeStamp + ") An DB error occurred: " + e.toString() );
 			e.printStackTrace();
 		}
 		
@@ -73,6 +73,7 @@ public class UserDataManager {
 			stmt.executeUpdate("UPDATE accounts SET isAdministrator=\"true\" WHERE username = \"" + username + "\";");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			returnStatus = ("(" + timeStamp + ") An DB error occurred: " + e.toString() );
 			e.printStackTrace();
 		}
 		
@@ -115,7 +116,7 @@ public class UserDataManager {
 			/* Insert friendRequest. */
 			stmt.executeUpdate("INSERT INTO friendRequests VALUES (\"" + fromUser + "\",\"" + toUser + "\",\"" + timeStamp + "\",\"" + message + "\");");
 		} catch (SQLException e) {
-			returnStatus = ("(" + timeStamp + ") An DB error occurred while sending request: " + e.toString() );
+			returnStatus = ("(" + timeStamp + ") An DB error occurred: " + e.toString() );
 			e.printStackTrace();
 		}
 		
@@ -175,7 +176,9 @@ public class UserDataManager {
 		/* Return false if account does not exist. */
 		if (!accountManager.accountExist(username)) { return false; }
 		try {
+			System.out.println("SELECT * FROM accounts WHERE username = \"" + username + "\";");
 			ResultSet rs = stmt.executeQuery("SELECT * FROM accounts WHERE username = \"" + username + "\";");
+			rs.next();
 			return rs.getString("isAdministrator").equals("true");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -195,9 +198,10 @@ public class UserDataManager {
 		String returnStatus = "(" + timeStamp + ") Announcement has been successfully created";
 		
 		try {
-			stmt.executeUpdate("INSERT INTO announcements VALUES (\"" + username + "\",\"" + timeStamp + "\",\"" + announcement + ");");
+			stmt.executeUpdate("INSERT INTO announcements VALUES (\"" + username + "\",\"" + timeStamp + "\",\"" + announcement + "\");");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			returnStatus = ("(" + timeStamp + ") An DB error occurred: " + e.toString() );
 			e.printStackTrace();
 		}
 		

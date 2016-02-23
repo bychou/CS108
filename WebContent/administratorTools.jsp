@@ -16,19 +16,19 @@
 			dispatcher.forward(request, response);
 		}
 	%>
-	<form action="AdminstratorToolServlet" method="post">
+	<form action="AdministratorToolsServlet" method="post">
 	<p>
-		<input type="hidden" name="option" value="Create Announmcement">
+		<input type="hidden" name="option" value="Create Announcement">
 		<input type="text" name="announcement"><input type="submit" value="Create Announcement">
 	</p>
 	</form>
-	<form>
+	<form action="AdministratorToolsServlet" method="post">
 	<p>
 		<input type="hidden" name="option" value="Promote User">
 		<input type="text" name="username"><input type="submit" value="Promote User">
 	</p>
 	</form>
-	<form action="AdminstratorToolServlet" method="post">
+	<form action="AdministratorToolsServlet" method="post">
 	<p>
 		<input type="hidden" name="option" value="Remove User">
 		<input type="text" name="username"><input type="submit" value="Remove User">
