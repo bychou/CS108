@@ -74,8 +74,7 @@ public class AccountManager {
 	public void createAccount(String username, String password) {
 		String encryptedPassword = generateHash(password);
 		try {
-			System.out.println("INSERT INTO accounts VALUES (\"" + username + "\",\"" + encryptedPassword + "\");");
-			stmt.executeUpdate("INSERT INTO accounts VALUES (\"" + username + "\",\"" + encryptedPassword + "\");");
+			stmt.executeUpdate("INSERT INTO accounts VALUES (\"" + username + "\",\"" + encryptedPassword + "\", \"false\");");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

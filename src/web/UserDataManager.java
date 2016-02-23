@@ -59,6 +59,26 @@ public class UserDataManager {
 	
 		return rs;
 	}
+	
+	/* Promote user to administrator. */
+	public String promoteUser(String username) {
+		String timeStamp = getTimeStamp();
+		String returnStatus = "(" + timeStamp + ")  " + username + " has been promoted to administrator.";
+		
+		if (!accountManager.accountExist(username)) {
+			return "(" + timeStamp + "), The user " + username + " does not exist.";
+		}
+		
+		try {
+			stmt.executeUpdate("UPDATE accounts SET isAdministrator=\"true\" WHERE username = \"" + username + "\";");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return returnStatus;
+		
+	}
 
 	public String sendFriendRequest(String fromUser, String toUser, String message) {
 		String timeStamp = getTimeStamp();
@@ -88,8 +108,7 @@ public class UserDataManager {
 			}	
 			
 			/* Check if friendship already exist. */
-			
-			if (rs.isBeforeFirst()) {
+			if (areFriends(fromUser, toUser)) {
 				return "(" + timeStamp + ") " + toUser + " and you are already firends.";
 			}
 					
@@ -135,6 +154,7 @@ public class UserDataManager {
 		
 	}
 	
+	/* Returns true if user1 and user2 are friends. */
 	public boolean areFriends(String user1, String user2) {
 		try {
 			ResultSet rs = stmt.executeQuery("SELECT * FROM friends WHERE fromUser = \"" + user1 + "\" AND toUser = \"" + user2 + "\";");
@@ -149,9 +169,53 @@ public class UserDataManager {
 		return false;
 	}
 	
+	/* Returns true is provided user is administrator. */
+	public boolean isAdminitrator(String username) {
+		
+		/* Return false if account does not exist. */
+		if (!accountManager.accountExist(username)) { return false; }
+		try {
+			ResultSet rs = stmt.executeQuery("SELECT * FROM accounts WHERE username = \"" + username + "\";");
+			return rs.getString("isAdministrator").equals("true");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		/* Should not reach here. */
+		assert false;
+		return false;
+	}
 	private String getTimeStamp() {
 		return new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
 	}
+
+	public String createAnnouncement(String username, String announcement) {
+		String timeStamp = getTimeStamp();
+		String returnStatus = "(" + timeStamp + ") Announcement has been successfully created";
+		
+		try {
+			stmt.executeUpdate("INSERT INTO announcements VALUES (\"" + username + "\",\"" + timeStamp + "\",\"" + announcement + ");");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return returnStatus;
+	}
+	
+	public ResultSet getAnnouncements() {
+		ResultSet rs = null;
+		try {
+			rs = stmt.executeQuery("SELECT * FROM announcements ORDER BY time DEST;");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
+	
+
 
 	
 	
