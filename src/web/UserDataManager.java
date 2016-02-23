@@ -207,7 +207,7 @@ public class UserDataManager {
 	public ResultSet getAnnouncements() {
 		ResultSet rs = null;
 		try {
-			rs = stmt.executeQuery("SELECT * FROM announcements ORDER BY time DEST;");
+			rs = stmt.executeQuery("SELECT * FROM announcements ORDER BY time DESC;");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
