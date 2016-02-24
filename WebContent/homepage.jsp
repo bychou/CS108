@@ -26,6 +26,15 @@
 <%
 	QuizManager QzManager = (QuizManager) request.getServletContext().getAttribute("Quiz Manager");
 	ResultSet quizrs = QzManager.getQuizList();
+	if (quizrs.next()) {
+%>
+<li><a href="QuizPage.jsp?id=<%= quizrs.getString("quizId") %>"><%= quizrs.getString("title") %></a></li>
+<%		
+	} else {
+%>
+<li><p>No quizzes</p></li>
+<%	
+	}
 	while (quizrs.next()) {
 %>
 <li><a href="QuizPage.jsp?id=<%= quizrs.getString("quizId") %>"><%= quizrs.getString("title") %></a></li>

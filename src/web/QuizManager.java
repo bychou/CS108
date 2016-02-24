@@ -85,9 +85,9 @@ public class QuizManager {
 		}
 	}
 	
-	public synchronized void updateQuizCreation(int quizNumber) {
+	public void updateQuizCreation(int quizNumber) {
 		try {		
-			String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+			String timeStamp = ClockTimeStamp.getTimeStamp();
 			String qry = "UPDATE quizzes SET dateCreated = \"" + timeStamp + "\" WHERE quizId = " + quizNumber;
 			System.out.println(qry);
 			stmt.executeUpdate(qry);
@@ -97,7 +97,7 @@ public class QuizManager {
 		}
 	}
 	
-	public synchronized ResultSet getQuizList() {
+	public ResultSet getQuizList() {
 		try {
 			ResultSet rs = stmt.executeQuery("SELECT * FROM quizzes WHERE dateCreated IS NOT NULL");
 			return rs;
@@ -108,7 +108,7 @@ public class QuizManager {
 		}
 	}
 	
-	public synchronized ResultSet getQuizListbyUser(String username) {
+	public ResultSet getQuizListbyUser(String username) {
 		try {
 			ResultSet rs = stmt.executeQuery("SELECT * FROM quizzes WHERE creatorUsername=\"" + username + "\"");
 			return rs;
@@ -119,7 +119,7 @@ public class QuizManager {
 		}
 	}
 	
-	public synchronized ResultSet getQuiz(int quizNumber) {
+	public ResultSet getQuiz(int quizNumber) {
 		try {
 			ResultSet rs = stmt.executeQuery("SELECT * FROM quizzes WHERE quizId = " + quizNumber);
 			return rs;
@@ -130,7 +130,7 @@ public class QuizManager {
 		}
 	}
 	
-	public synchronized ResultSet getQuestion(int quizNumber) {
+	public ResultSet getQuestion(int quizNumber) {
 		try {
 			ResultSet rs = stmt.executeQuery("SELECT * FROM questions WHERE quizId = " + quizNumber);
 			return rs;
@@ -141,7 +141,7 @@ public class QuizManager {
 		}
 	}
 	
-	public synchronized ResultSet getAnswer(int questionNumber) {
+	public ResultSet getAnswer(int questionNumber) {
 		try {
 			ResultSet rs = stmt.executeQuery("SELECT * FROM answers WHERE questionId = " + questionNumber);
 			return rs;
@@ -152,7 +152,7 @@ public class QuizManager {
 		}
 	}
 	
-	public synchronized ResultSet getAnswerOption(int questionNumber) {
+	public ResultSet getAnswerOption(int questionNumber) {
 		try {
 			ResultSet rs = stmt.executeQuery("SELECT * FROM answerOptions WHERE questionId = " + questionNumber);
 			return rs;
