@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="java.sql.*" %>
+<%@ page import="web.*" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -12,7 +14,23 @@
 	String idName = request.getParameter("id");
 %>
 <p>Quiz id = <%= idName %></p>
-<p>Quiz Creator: <a href="\creator.jsp">url of creator(pulled from database)</a></p>
+<%
+	QuizManager QzManager = (QuizManager) request.getServletContext().getAttribute("Quiz Manager");
+	ResultSet rs = QzManager.getQuiz(Integer.parseInt(idName));
+	String creatorName = null;
+	if (rs.next()) {
+		creatorName = rs.getString("creatorUsername");
+	}
+%>
+<p>Quiz Creator: <a href="\creator.jsp"><%= creatorName %>, url of creator(pulled from database)</a></p>
+<%
+	String currentUser = (String) request.getSession().getAttribute("username");
+	if (currentUser.equals(creatorName)) {
+%>
+<p><a href="viewquiz.jsp?id=<%= idName %>" >View Quiz</a></p>
+<%
+	}
+%>
 <p>List of user's past performance</p>
 <ul>
 <li>performance1</li>

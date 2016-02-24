@@ -10,5 +10,6 @@
 <h1>Quiz Number <%= (Integer) session.getAttribute("quizNumber") %> succesfully created
 by <%= request.getSession().getAttribute("username") %>
 </h1>
+<p><a href="viewquiz.jsp?id=<%= (Integer) session.getAttribute("quizNumber") %>" >View Created Quiz</a></p>
 </body>
 </html>

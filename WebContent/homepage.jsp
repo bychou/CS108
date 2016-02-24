@@ -18,7 +18,7 @@
 <p><a href="message.jsp">Message</a></p>
 <p><a href="friendRequest.jsp">Friend Request</a></p>
 <p><a href="CreateQuiz.jsp">Create New Quiz</a></p>
-<p><u>List of quizzes:</u></p>
+<p><u>List of all quizzes:</u></p>
 <ul>
 <%
 	QuizManager QzManager = (QuizManager) request.getServletContext().getAttribute("Quiz Manager");
@@ -26,6 +26,26 @@
 	while (quizrs.next()) {
 %>
 <li><a href="QuizPage.jsp?id=<%= quizrs.getString("quizId") %>"><%= quizrs.getString("title") %></a></li>
+<%
+	}
+%>
+</ul>
+<p><u>List of quizzes created by you:</u></p>
+<ul>
+<%
+	ResultSet quizUserRs = QzManager.getQuizListbyUser((String) request.getSession().getAttribute("username"));
+	if (quizUserRs.next()) {
+%>
+<li><a href="QuizPage.jsp?id=<%= quizUserRs.getString("quizId") %>"><%= quizUserRs.getString("title") %></a></li>
+<%		
+	} else {
+%>
+<li><p>No quizzes created by you</p></li>
+<%	
+	}
+	while (quizUserRs.next()) {
+%>
+<li><a href="QuizPage.jsp?id=<%= quizUserRs.getString("quizId") %>"><%= quizUserRs.getString("title") %></a></li>
 <%
 	}
 %>

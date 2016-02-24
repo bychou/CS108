@@ -108,5 +108,58 @@ public class QuizManager {
 		}
 	}
 	
+	public synchronized ResultSet getQuizListbyUser(String username) {
+		try {
+			ResultSet rs = stmt.executeQuery("SELECT * FROM quizzes WHERE creatorUsername=\"" + username + "\"");
+			return rs;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
 	
+	public synchronized ResultSet getQuiz(int quizNumber) {
+		try {
+			ResultSet rs = stmt.executeQuery("SELECT * FROM quizzes WHERE quizId = " + quizNumber);
+			return rs;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public synchronized ResultSet getQuestion(int quizNumber) {
+		try {
+			ResultSet rs = stmt.executeQuery("SELECT * FROM questions WHERE quizId = " + quizNumber);
+			return rs;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public synchronized ResultSet getAnswer(int questionNumber) {
+		try {
+			ResultSet rs = stmt.executeQuery("SELECT * FROM answers WHERE questionId = " + questionNumber);
+			return rs;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public synchronized ResultSet getAnswerOption(int questionNumber) {
+		try {
+			ResultSet rs = stmt.executeQuery("SELECT * FROM answerOptions WHERE questionId = " + questionNumber);
+			return rs;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
 }
