@@ -9,7 +9,10 @@
 
 <%
 	/* Store username to session. */
-	request.getSession().setAttribute("username", request.getParameter("username"));
+	if (request.getSession().getAttribute("username") == null) {
+		request.getSession().setAttribute("username", request.getParameter("username"));
+	}
+	
 %>
 <title>Welcome <%= request.getSession().getAttribute("username") %></title>
 </head>
