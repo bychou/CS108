@@ -279,12 +279,13 @@ public class UserDataManager {
 		 ResultSet rs = null;
 		 
 		 try {
-			rs = stmt.executeQuery("SELECT * FROM quizRecords WHERR username = \"" + username + "\" ORDER BY time DESC");
+			 System.out.println("SELECT * FROM quizRecords NATURAL JOIN quizzes WHERE username = \"" + username + "\" ORDER BY time DESC");
+			rs = stmt.executeQuery("SELECT * FROM quizRecords NATURAL JOIN quizzes WHERE username = \"" + username + "\" ORDER BY time DESC");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 return rs;
+		return rs;
 	}
 }
 

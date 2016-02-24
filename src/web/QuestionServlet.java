@@ -41,6 +41,18 @@ public class QuestionServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		ServletContext sc = request.getServletContext();
 		QuizManager QzManager = (QuizManager) request.getServletContext().getAttribute("Quiz Manager");
+		
+		String questionType = request.getParameter("questionType");
+		
+		request.setAttribute("questionType", "question-response");
+		if (questionType.equals("fill-in-blank")) {
+			request.setAttribute("questionType", "fill-in-blank");
+		} else if (questionType.equals("multiple-choice")) {
+			request.setAttribute("questionType", "multiple-choice");
+		} else if (questionType.equals("picture-response")) {
+			request.setAttribute("questionType", "picture-response");
+		}
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("AddQuestionDescription.jsp");
 		dispatcher.forward(request, response);
 		
