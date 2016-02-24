@@ -9,6 +9,36 @@
 <body>
 <h1>Question Description</h1>
 <form action="AddQuestionServlet" method="post">
+<%
+	if (((String)request.getAttribute("questionType")).equals("fill-in-blank")) {
+%>
+<p>Enter text of question before blank:</p>
+<p><textarea name="textBefore" rows="5" cols="100"></textarea></p>
+<p>Enter text of question after blank:</p>
+<p><textarea name="textAfter" rows="5" cols="100"></textarea></p>
+<%
+	} else if (((String)request.getAttribute("questionType")).equals("picture-response")) {
+%>
+<p>Enter url of image corresponding to question below:</p>
+<p><textarea name="textAll" rows="5" cols="100"></textarea></p>
+<%
+	} else {
+%>
+<p>Enter question below:</p>
+<p><textarea name="textAll" rows="5" cols="100"></textarea></p>
+<%
+	}
+	if (((String)request.getAttribute("questionType")).equals("multiple-choice")) {
+%>
+<p>Number of options: <input type="text" name="numAnswers" /></p>
+<%
+	} else {
+%>
+<p>Number of answers: <input type="text" name="numAnswers" /></p>
+<%
+	}
+%>
+<input name="quesType" type="hidden" value="<%= (String) request.getAttribute("questionType") %>"/>
 <p><input type="submit" value="Add Question"></p>
 </form>
 </body>

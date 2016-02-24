@@ -12,16 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class AddQuestionServlet
+ * Servlet implementation class AddAnswerServlet
  */
-@WebServlet("/AddQuestionServlet")
-public class AddQuestionServlet extends HttpServlet {
+@WebServlet("/AddAnswerServlet")
+public class AddAnswerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddQuestionServlet() {
+    public AddAnswerServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -47,20 +47,42 @@ public class AddQuestionServlet extends HttpServlet {
 		int numQuestions = (Integer) session.getAttribute("numQuestion");
 		
 		String questionType = request.getParameter("quesType");
+		int questionNumber = Integer.parseInt(request.getParameter("questionNumber"));
+		int numChoices = Integer.parseInt(request.getParameter("numChoices"));
 		
-		String questionText = request.getParameter("textAll");
-		if (questionType.equals("fill-in-blank")) {
-			questionText = request.getParameter("textBefore") + "_____" + request.getParameter("textAfter");
+		if (questionType.equals("multiple-choice")) {
+			String[] ansArray = new String[numChoices];
+			boolean[] correctArray = new boolean[numChoices];
+			String[] options = request.getParameterValues("correctOptions");
+			if (options != null) {
+				for (String s : options) {
+					int choice = Integer.parseInt(s);
+					correctArray[choice-1] = true;
+				}
+			}
+			for (int i = 1; i <= numChoices; i++) {
+				String ans = request.getParameter("" + i);
+				ansArray[i-1] = ans;
+			}
+			QzManager.addMultiChoiceAnswer(questionNumber, ansArray, correctArray);
+		} else {
+			String[] ansArray = new String[numChoices];
+			for (int i = 1; i <= numChoices; i++) {
+				String ans = request.getParameter("" + i);
+				ansArray[i-1] = ans;
+			}
+			QzManager.addAnswer(questionNumber, ansArray);
 		}
-		int quesNumber = QzManager.addQuestion(quizNumber, questionType, questionText);
-		
-		request.setAttribute("questionNumber", quesNumber);
-		request.setAttribute("questionText", questionText);
-		request.setAttribute("numChoices", Integer.parseInt(request.getParameter("numAnswers")));
-		request.setAttribute("questionType", questionType);
-		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("AddAnswer.jsp");
-		dispatcher.forward(request, response);
+
+		if (currentQuestion < numQuestions) {
+			session.setAttribute("currentQuestion", currentQuestion+1);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("AddQuestion.jsp");
+			dispatcher.forward(request, response);
+		} else if (currentQuestion == numQuestions) {
+			QzManager.updateQuizCreation(quizNumber);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("QuizCreated.jsp");
+			dispatcher.forward(request, response);
+		}
 	}
 
 }
