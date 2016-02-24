@@ -11,7 +11,7 @@
 	<%
 		String username = (String) request.getSession().getAttribute("username");	
 		UserDataManager userDataManager = (UserDataManager) request.getServletContext().getAttribute("User Data Manager");
-		if (!userDataManager.isAdminitrator(username)) {
+		if (!userDataManager.isAdministrator(username)) {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("permissionDenied.jsp");
 			dispatcher.forward(request, response);
 		}
