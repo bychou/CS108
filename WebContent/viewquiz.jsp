@@ -44,7 +44,7 @@
 int count = 1;
 for (int i = 0; i < allQuesId.size(); i++) {
 	if (allQuesType.get(i).equals("picture-response")) {
-		out.println("<p><b>Question " + count + ": </p>");
+		out.println("<p><b>Question " + count + ": </b></p>");
 		out.println("<img src=" + allQuesText.get(i) + " alt=\"Image not displayed.\">");
 	} else {
 		out.println("<p><b>Question " + count + ": </b>" + allQuesText.get(i) + "</p>");
