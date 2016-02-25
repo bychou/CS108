@@ -1,6 +1,7 @@
 package web;
 
 import java.sql.ResultSet;
+import web.ClockTimeStamp;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
@@ -27,7 +28,7 @@ public class UserDataManager {
 	}
 	
 	public String sendMessage(String fromUser, String toUser, String message) {
-		String timeStamp = getTimeStamp();
+		String timeStamp = ClockTimeStamp.getTimeStamp();
 		String returnStatus = "(" + timeStamp + ") Message successfully sent.";
 		
 		try {
@@ -62,7 +63,7 @@ public class UserDataManager {
 	
 	/* Promote user to administrator. */
 	public String promoteUser(String username) {
-		String timeStamp = getTimeStamp();
+		String timeStamp = ClockTimeStamp.getTimeStamp();
 		String returnStatus = "(" + timeStamp + ")  " + username + " has been promoted to administrator.";
 		
 		if (!accountManager.accountExist(username)) {
@@ -87,7 +88,7 @@ public class UserDataManager {
 	}
 
 	public String sendFriendRequest(String fromUser, String toUser, String message) {
-		String timeStamp = getTimeStamp();
+		String timeStamp = ClockTimeStamp.getTimeStamp();
 		String returnStatus = "(" + timeStamp + ") Request successfully sent to user" + toUser + ".";
 		
 		try {
@@ -129,7 +130,7 @@ public class UserDataManager {
 	}
 	
 	public String acceptFriendRequest(String fromUser, String toUser) {
-		String timeStamp = getTimeStamp();
+		String timeStamp = ClockTimeStamp.getTimeStamp();
 		String returnStatus = "(" + timeStamp + ") You and " + fromUser + " are now friends.";
 		
 		try {
@@ -194,12 +195,9 @@ public class UserDataManager {
 		assert false;
 		return false;
 	}
-	private String getTimeStamp() {
-		return new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-	}
 
 	public String createAnnouncement(String username, String announcement) {
-		String timeStamp = getTimeStamp();
+		String timeStamp = ClockTimeStamp.getTimeStamp();
 		String returnStatus = "(" + timeStamp + ") Announcement has been successfully created";
 		
 		try {
