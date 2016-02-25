@@ -1,4 +1,5 @@
 package web;
+import java.util.*;
 
 public abstract class Question {
 	
@@ -13,5 +14,14 @@ public abstract class Question {
 	
 	/*Sets the Question number*/
 	public abstract void setQuestionNumber(int i);
+	
+	public abstract void setQuestionOptions(List<String> options);
+	
+	public abstract List<String> getQuestionOptions();
+	
+	public abstract void addAnswers(Set<String> ans);
+	
+	public abstract Set<String> getAnswers();
+	
 }
 

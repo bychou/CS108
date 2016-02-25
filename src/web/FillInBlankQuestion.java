@@ -1,22 +1,26 @@
 package web;
 
+import java.util.List;
+import java.util.Set;
+
 public class FillInBlankQuestion extends Question {
 	
 	public static final String BLANK = "__________";
 	int questionNumber;
-	String question;
+	private String questionText;
+	private Set<String> ans;
 	String[] questionInArray;
 	int blankIndex;
 	
 
 	@Override
 	public String getQuestion() {
-		return question;
+		return questionText;
 	}
 
 	@Override
 	public void setQuestion(String s) {
-		question = s;
+		questionText = s;
 	}
 
 	@Override
@@ -42,6 +46,22 @@ public class FillInBlankQuestion extends Question {
 	
 	public int getBlankIndex() {
 		return blankIndex;
+	}
+	
+	public void setQuestionOptions(List<String> options) {
+		
+	}
+	
+	public List<String> getQuestionOptions() {
+		return null;
+	}
+	
+	public void addAnswers(Set<String> ans) {
+		this.ans = ans;
+	}
+	
+	public Set<String> getAnswers() {
+		return this.ans;
 	}
 
 }

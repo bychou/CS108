@@ -8,8 +8,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <%
-	/* If passed in a user name store it. */
-	if (request.getParameter("username") != null) {
+	/* Store username to session. */
+	if (request.getSession().getAttribute("username") == null) {
 		request.getSession().setAttribute("username", request.getParameter("username"));
 	}
 	

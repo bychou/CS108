@@ -1,20 +1,25 @@
 package web;
 
+import java.util.List;
+import java.util.Set;
+
 public class MultipleChoiceQuestion extends Question {
 	
 	int questionNumber;
 	String directions;
-	String questionOptions[];
+	private List<String> questionOptions;
+	private Set<String> ans;
+	private String questionText;
 	int correctOptionIndex;
 	
 	@Override
 	public String getQuestion() {
-		return directions;
+		return questionText;
 	}
 
 	@Override
 	public void setQuestion(String s) {
-		directions = s;
+		questionText = s;
 
 	}
 
@@ -43,12 +48,19 @@ public class MultipleChoiceQuestion extends Question {
 	}
 	
 	/*returns the array of answer choices*/
-	public String[] getQuestionOptions() {
+	public List<String> getQuestionOptions() {
 		return questionOptions;
 	}
 	
-	/*Sets the array of answer choices*/
-	public void setQuestionOptions(String[] s) {
-		questionOptions = s;
+	public void setQuestionOptions(List<String> options) {
+		this.questionOptions = options;
+	}
+	
+	public void addAnswers(Set<String> ans) {
+		this.ans = ans;
+	}
+	
+	public Set<String> getAnswers() {
+		return this.ans;
 	}
 }

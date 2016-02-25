@@ -46,13 +46,15 @@
 <p>print summary statistics</p>
 <form action="QuizPlayServlet" method="post">
 <p>
-<input name="quizType" type="hidden" value="realtest"/>
-<input type="submit" value="Start Quiz" /></p>
+<input name="quizId" type="hidden" value="<%= idName %>"/>
+<input name="quizMode" type="hidden" value="realtest"/>
+<input type="submit" value="Start Taking Quiz" /></p>
 </form>
 <form action="QuizPlayServlet" method="post">
 <p>
-<input name="quizType" type="hidden" value="practice"/>
-<input type="submit" value="Start Practice Quiz" /></p>
+<input name="quizId" type="hidden" value="<%= idName %>"/>
+<input name="quizMode" type="hidden" value="practice"/>
+<input type="submit" value="Start Taking Quiz in Practice Mode" /></p>
 </form>
 </body>
 </html>

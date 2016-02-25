@@ -75,7 +75,7 @@ for (int i = 0; i < allQuesId.size(); i++) {
 		out.println("</ol>");
 	}
 	count++;
-	out.println("<br></br>");
+	out.println("<br>");
 }
 %>
 <p>Go back to <a href="homepage.jsp">Homepage</a></p>
