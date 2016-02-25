@@ -35,6 +35,20 @@
 	</p>
 	</form>
 	
+	<form action="AdministratorToolsServlet" method="post">
+	<p>
+		<input type="hidden" name="option" value="Remove Quiz">
+		<input type="text" name="quizNumber"><input type="submit" value="Remove Quiz">
+	</p>
+	</form>
+	
+	<form action="AdministratorToolsServlet" method="post">
+	<p>
+		<input type="hidden" name="option" value="Clear Quiz History">
+		<input type="text" name="quizNumber"><input type="submit" value="Clear Quiz History">
+	</p>
+	</form>
+	
 	<%
 		String returnStatus = (String) request.getAttribute("Return Status");
 		if ( returnStatus != null) {

@@ -38,6 +38,7 @@ public class AdministratorToolsServlet extends HttpServlet {
 		
 		String currentUser = (String) request.getSession().getAttribute("username");	
 		UserDataManager userDataManager = (UserDataManager) request.getServletContext().getAttribute("User Data Manager");
+		QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute("Quiz Manager");
 		String option = (String) request.getParameter("option");
 		String returnStatus = null;
 		
@@ -49,7 +50,17 @@ public class AdministratorToolsServlet extends HttpServlet {
 		 	case "Promote User":
 		 		String username = (String) request.getParameter("username");
 		 		returnStatus = userDataManager.promoteUser(username);
+		 		break;	 		
+		 	case "Clear Quiz History": // TODO: Not tested yet
+		 		int quizNumber = Integer.parseInt(request.getParameter("quizNumber"));
+		 		returnStatus = quizManager.clearQuizHistory(quizNumber);
 		 		break;
+		 	case "Remove Quiz":
+		 		quizNumber = Integer.parseInt(request.getParameter("quizNumber"));
+		 		returnStatus = quizManager.removeQuiz(quizNumber);
+		 		break;
+		 	
+		 		
 		 		
 		 }	 
 		 

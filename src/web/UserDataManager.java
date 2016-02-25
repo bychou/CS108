@@ -273,6 +273,7 @@ public class UserDataManager {
 		
 	}
 	
+	// TODO: Test this function
 	public ResultSet getUserHistory (String username) {
 		 ResultSet rs = null;
 		 
