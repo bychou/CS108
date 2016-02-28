@@ -254,11 +254,15 @@ public class UserDataManager {
 					}			
 					break;
 				case HIGH_SCORE:
-					rs = stmt.executeQuery("SELECT score FROM quizRecords WHERE quizId = \"" + quizId + "\" ORDER BY score DESC LIMIT 1;");
-					int maxScore = rs.getInt(1);
-					if (score > maxScore) {
-						stmt.executeUpdate("INSERT INTO achievements VALUES (\"" + username + "\"," + "\"I am the Greatest\");");
-					}
+					/* Add only when user get highest score on a quiz and does not already have this achievements. */
+					rs = stmt.executeQuery("SELECT * FROM achievements WHERE username = \"" + username + "\";");
+					if (!rs.isBeforeFirst()) {
+						rs = stmt.executeQuery("SELECT score FROM quizRecords WHERE quizId = \"" + quizId + "\" ORDER BY score DESC LIMIT 1;");
+						int maxScore = rs.getInt(1);
+						if (score > maxScore) {
+							stmt.executeUpdate("INSERT INTO achievements VALUES (\"" + username + "\"," + "\"I am the Greatest\");");
+						}
+					}					
 					break;
 				case PRACTICE_MODE:
 					rs = stmt.executeQuery("SELECT * FROM achievements WHERE username = \"" + username + "\" AND achievements = \"Practice Makes Perfect\";");
@@ -266,6 +270,8 @@ public class UserDataManager {
 						stmt.executeUpdate("INSERT INTO achievements VALUES (\"" + username + "\"," + "\"Practice Makes Perfect\");");
 					}
 					break;
+				default:
+					assert false;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -278,13 +284,26 @@ public class UserDataManager {
 		 ResultSet rs = null;
 		 
 		 try {
-			 System.out.println("SELECT * FROM quizRecords NATURAL JOIN quizzes WHERE username = \"" + username + "\" ORDER BY time DESC");
-			rs = stmt.executeQuery("SELECT * FROM quizRecords NATURAL JOIN quizzes WHERE username = \"" + username + "\" ORDER BY time DESC");
+			rs = stmt.executeQuery("SELECT * FROM quizRecords NATURAL JOIN quizzes WHERE username = \"" + username + "\" ORDER BY time DESC;");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return rs;
+	}
+	
+	
+	public ResultSet getUserAchievements(String username) {
+		ResultSet rs = null;
+		 
+		 try {
+			rs = stmt.executeQuery("SELECT * FROM achievements WHERE username = \"" + username + "\";");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+		
 	}
 }
 
