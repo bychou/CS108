@@ -53,6 +53,7 @@ public class QuizPlayServlet extends HttpServlet {
 				rs.next();
 				String isRandomOrder = rs.getString("isRandom");
 				String isOnePageQuiz = rs.getString("isOnePage");
+				String isImmediate = rs.getString("isImmediate");
 				boolean randomQuizOrder = false;
 				if (isRandomOrder.equals("true")) {
 					randomQuizOrder = true;
@@ -73,7 +74,7 @@ public class QuizPlayServlet extends HttpServlet {
 					currentQuiz.addQuestion(qs);
 					qs.setQuestion(allQuesText.get(i));
 					Set<String> ans = new HashSet<String>();
-					if (allQuesType.get(i).equals("multiple-choice")) {
+					if (allQuesType.get(i).equals("multiple-choice") || allQuesType.get(i).equals("multiple-choice-multiple-answer")) {
 						ResultSet answerOptRs = QzManager.getAnswerOption(allQuesId.get(i));
 						List<String> options = new ArrayList<String>();
 						while (answerOptRs.next()) {
@@ -85,10 +86,28 @@ public class QuizPlayServlet extends HttpServlet {
 							}
 						}
 						qs.setQuestionOptions(options);
+					} if (allQuesType.get(i).equals("matching")) {
+						ResultSet matchOptRs = QzManager.getMatchingOption(allQuesId.get(i));
+						List<String> options = new ArrayList<String>();
+						List<String> answers = new ArrayList<String>();
+						while (matchOptRs.next()) {
+							options.add(matchOptRs.getString("optionText"));
+							answers.add(matchOptRs.getString("matchingText"));
+						}
+						qs.setQuestionOptions(options);
+						qs.setAnswerOptions(answers);
 					} else {
 						ResultSet answerRs = QzManager.getAnswer(allQuesId.get(i));
 						while (answerRs.next()) {
 							ans.add(answerRs.getString("answer"));	
+						}
+						if (allQuesType.get(i).equals("multiple-answer-ordered")) {
+							qs.setNumSlot(ans.size());
+						} else if (allQuesType.get(i).equals("multiple-answer-unordered")) {
+							ResultSet slotRs = QzManager.getAnswerSlot(allQuesId.get(i));
+							slotRs.next();
+							int numSlot = Integer.parseInt(slotRs.getString("numSlot"));
+							qs.setNumSlot(numSlot);
 						}
 					}
 					qs.addAnswers(ans);

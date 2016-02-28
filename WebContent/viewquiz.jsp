@@ -24,6 +24,13 @@
 <li><p><u>Quiz Category:</u> <%= rs.getString("category") %></p></li>
 <li><p><u>Quiz to be presented random order:</u> <%= rs.getString("isRandom") %></p></li>
 <li><p><u>Quiz to be presented in one page:</u> <%= rs.getString("isOnePage") %></p></li>
+<%
+		if (rs.getString("isOnePage").equals("false")) {
+%>
+<li><p><u>Quiz to be presented in immediate correction mode:</u> <%= rs.getString("isImmediate") %></p></li>
+<%
+		}
+%>
 <li><p><u>Quiz available in practice mode:</u> <%= rs.getString("isPracticeMode") %></p></li>
 <%
 	}
@@ -49,7 +56,7 @@ for (int i = 0; i < allQuesId.size(); i++) {
 	} else {
 		out.println("<p><b>Question " + count + ": </b>" + allQuesText.get(i) + "</p>");
 	}
-	if (allQuesType.get(i).equals("multiple-choice")) {
+	if (allQuesType.get(i).equals("multiple-choice") || allQuesType.get(i).equals("multiple-choice-multiple-answer")) {
 		ResultSet answerOptRs = QzManager.getAnswerOption(allQuesId.get(i));
 		out.println("<p><b>Options:</b></p>");
 		out.println("<ol>");
@@ -65,7 +72,22 @@ for (int i = 0; i < allQuesId.size(); i++) {
 			out.println("</li><p>");
 		}
 		out.println("</ol>");
+	} else if (allQuesType.get(i).equals("matching")) {
+		ResultSet matchOptRs = QzManager.getMatchingOption(allQuesId.get(i));
+		out.println("<p><b>Matching Answers:</b></p>");
+		out.println("<ol>");
+		while (matchOptRs.next()) {
+			out.print("<li><p>");
+			out.print(matchOptRs.getString("optionText") + "<b> ----> " + matchOptRs.getString("matchingText") + "</b>");
+			out.println("</li><p>");
+		}
+		out.println("</ol>");
 	} else {
+		if (allQuesType.get(i).equals("multiple-answer-unordered")) {
+			ResultSet slotRs = QzManager.getAnswerSlot(allQuesId.get(i));
+			slotRs.next();
+			out.println("<p><b>Number of Answer Slots = " + slotRs.getString("numSlot") + "</b></p>");
+		}
 		ResultSet answerRs = QzManager.getAnswer(allQuesId.get(i));
 		out.println("<p><b>Acceptable Answers:</b></p>");
 		out.println("<ol>");

@@ -27,5 +27,21 @@
 <p><input name="questionType" type="hidden" value="picture-response"/>
 <input type="submit" value="picture-response"></p>
 </form>
+<form action="QuestionServlet" method="post">
+<p><input name="questionType" type="hidden" value="multiple-answer-ordered"/>
+<input type="submit" value="multiple-answer-ordered"></p>
+</form>
+<form action="QuestionServlet" method="post">
+<p><input name="questionType" type="hidden" value="multiple-answer-unordered"/>
+<input type="submit" value="multiple-answer-unordered"></p>
+</form>
+<form action="QuestionServlet" method="post">
+<p><input name="questionType" type="hidden" value="multiple-choice-multiple-answer"/>
+<input type="submit" value="multiple-choice-multiple-answer"></p>
+</form>
+<form action="QuestionServlet" method="post">
+<p><input name="questionType" type="hidden" value="matching"/>
+<input type="submit" value="matching"></p>
+</form>
 </body>
 </html>

@@ -50,7 +50,7 @@ public class AddAnswerServlet extends HttpServlet {
 		int questionNumber = Integer.parseInt(request.getParameter("questionNumber"));
 		int numChoices = Integer.parseInt(request.getParameter("numChoices"));
 		
-		if (questionType.equals("multiple-choice")) {
+		if (questionType.equals("multiple-choice") || questionType.equals("multiple-choice-multiple-answer")) {
 			String[] ansArray = new String[numChoices];
 			boolean[] correctArray = new boolean[numChoices];
 			String[] options = request.getParameterValues("correctOptions");
@@ -65,6 +65,16 @@ public class AddAnswerServlet extends HttpServlet {
 				ansArray[i-1] = ans;
 			}
 			QzManager.addMultiChoiceAnswer(questionNumber, ansArray, correctArray);
+		} else if (questionType.equals("matching")) {
+			String[] choiceArray = new String[numChoices];
+			String[] answerArray = new String[numChoices];
+			for (int i = 1; i <= numChoices; i++) {
+				String choiceText = request.getParameter("choice" + i);
+				String answerText = request.getParameter("answer" + i);
+				choiceArray[i-1] = choiceText;
+				answerArray[i-1] = answerText;
+			}
+			QzManager.addMatchingAnswer(questionNumber, choiceArray, answerArray);
 		} else {
 			String[] ansArray = new String[numChoices];
 			for (int i = 1; i <= numChoices; i++) {

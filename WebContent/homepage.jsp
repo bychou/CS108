@@ -12,14 +12,12 @@
 	if (request.getSession().getAttribute("username") == null) {
 		request.getSession().setAttribute("username", request.getParameter("username"));
 	}
-
-	String username = (String) request.getAttribute("username");
 	
 %>
-<title>Welcome <%= username %></title>
+<title>Welcome <%= request.getSession().getAttribute("username") %></title>
 </head>
 <body>
-<h1>Welcome <%= username %></h1>
+<h1>Welcome <%= request.getSession().getAttribute("username") %></h1>
 <p><a href="message.jsp">Message</a></p>
 <p><a href="friendRequest.jsp">Friend Request</a></p>
 <p><a href="CreateQuiz.jsp">Create New Quiz</a></p>
@@ -47,7 +45,7 @@
 <p><u>List of quizzes created by you:</u></p>
 <ul>
 <%
-	ResultSet quizUserRs = QzManager.getQuizListbyUser(username);
+	ResultSet quizUserRs = QzManager.getQuizListbyUser((String) request.getSession().getAttribute("username"));
 	if (quizUserRs.next()) {
 %>
 <li><a href="QuizPage.jsp?id=<%= quizUserRs.getString("quizId") %>"><%= quizUserRs.getString("title") %></a></li>
@@ -68,15 +66,10 @@
 <p><a href="history.jsp">History</a></p>
 <p><a href="administratorTools.jsp"> Administrator Tools</a></p>
 
-<%
-	ResultSet rs = null;
-	UserDataManager userDataManager = (UserDataManager) request.getServletContext().getAttribute("User Data Manager");
-%>
-
 <h3>Announcements</h3>
-<%	
-	
-	rs = userDataManager.getAnnouncements();
+<%
+	UserDataManager userDataManager = (UserDataManager) request.getServletContext().getAttribute("User Data Manager");
+	ResultSet rs = userDataManager.getAnnouncements();
 	
 	if (!rs.isBeforeFirst()) {
 		out.println("<p> There is no announcement </p>");
@@ -87,20 +80,6 @@
 		String announcement = rs.getString("announcement");
 		
 		out.println ("<p>" + timeStamp + " by " + author + ":" + announcement);
-		}
-	}
-%>
-
-<h3>Achievements</h3>
-<%
-	rs = userDataManager.getUserAchievements(username);
-	
-	if (!rs.isBeforeFirst()) {
-		out.println("<p> You have no achievement. </p>");
-	} else {
-		while (rs.next()) {
-		
-		out.println ("<p>" + rs.getString("achievement") + "</p>");
 		}
 	}
 %>

@@ -51,6 +51,14 @@ public class QuestionServlet extends HttpServlet {
 			request.setAttribute("questionType", "multiple-choice");
 		} else if (questionType.equals("picture-response")) {
 			request.setAttribute("questionType", "picture-response");
+		} else if (questionType.equals("multiple-answer-ordered")) {
+			request.setAttribute("questionType", "multiple-answer-ordered");
+		} else if (questionType.equals("multiple-answer-unordered")) {
+			request.setAttribute("questionType", "multiple-answer-unordered");
+		} else if (questionType.equals("multiple-choice-multiple-answer")) {
+			request.setAttribute("questionType", "multiple-choice-multiple-answer");
+		} else if (questionType.equals("matching")) {
+			request.setAttribute("questionType", "matching");
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("AddQuestionDescription.jsp");

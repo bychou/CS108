@@ -18,8 +18,35 @@
 <%
 		for (int i = 1; i <= ((Integer) request.getAttribute("numChoices")); i++) {
 %>
-<li><p><%= "Enter option " + i + ": " %><textarea name="<%= i %>" rows="1" cols="100"></textarea>
+<li><p><%= "Enter option " + i + ": " %><textarea name="<%= i %>" rows="1" cols="50"></textarea>
+<input type="radio" name="correctOptions" value="<%= i %>">isCorrectOption</p></li>
+<%
+		}
+%>
+</ul>
+<%
+	} else if (((String) request.getAttribute("questionType")).equals("multiple-choice-multiple-answer")) {
+%>
+<ul>
+<%
+		for (int i = 1; i <= ((Integer) request.getAttribute("numChoices")); i++) {
+%>
+<li><p><%= "Enter option " + i + ": " %><textarea name="<%= i %>" rows="1" cols="50"></textarea>
 <input type="checkbox" name="correctOptions" value="<%= i %>">isCorrectOption</p></li>
+<%
+		}
+%>
+</ul>
+<%
+	} else if (((String) request.getAttribute("questionType")).equals("matching")) {
+%>
+<p>Enter matching choices on left side text box and matching answer next to choice on right side text box.</p>
+<ul>
+<%
+		for (int i = 1; i <= ((Integer) request.getAttribute("numChoices")); i++) {
+%>
+<li><p><input type="text" name="<%= "choice" + i %>" size="50" />
+<input type="text" name="<%= "answer" + i %>" size="50" /></p></li>
 <%
 		}
 %>

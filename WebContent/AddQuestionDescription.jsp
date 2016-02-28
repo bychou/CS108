@@ -28,9 +28,18 @@
 <p><textarea name="textAll" rows="5" cols="100"></textarea></p>
 <%
 	}
-	if (((String)request.getAttribute("questionType")).equals("multiple-choice")) {
+	if (((String)request.getAttribute("questionType")).equals("multiple-choice") || ((String)request.getAttribute("questionType")).equals("multiple-choice-multiple-answer")) {
 %>
 <p>Number of options: <input type="text" name="numAnswers" /></p>
+<%
+	} else if (((String)request.getAttribute("questionType")).equals("matching")) {
+%>
+<p>Number of options to be matched: <input type="text" name="numAnswers" /></p>
+<%
+	} else if (((String)request.getAttribute("questionType")).equals("multiple-answer-unordered")) {
+%>
+<p>Number of acceptable answers: <input type="text" name="numAnswers" /></p>
+<p>Number of answer slots: <input type="text" name="numSlots" /></p>
 <%
 	} else {
 %>

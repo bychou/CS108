@@ -50,6 +50,7 @@ public class QuizCreatorServlet extends HttpServlet {
 		String[] options = request.getParameterValues("preferences");
 		boolean isRandom = false;
 		boolean isOnePage = true;
+		boolean isImmediate = false;
 		boolean isPracticeMode = false;
 		if (options != null) {
 			for (String s : options) {
@@ -57,13 +58,15 @@ public class QuizCreatorServlet extends HttpServlet {
 					isRandom = true;
 				} else if (s.equals("multiple")) {
 					isOnePage = false;
+				} else if (s.equals("immediate")) {
+					isImmediate = true;
 				} else if (s.equals("practice")) {
 					isPracticeMode = true;
 				}
 			}
 		}
 		int numQuestions = Integer.parseInt(request.getParameter("numQuestion"));
-		int quizNum = QzManager.createQuiz(quizTitle, quizDescription, quizCategory, creatorName, dateCreated, isRandom, isOnePage, isPracticeMode, numQuestions);
+		int quizNum = QzManager.createQuiz(quizTitle, quizDescription, quizCategory, creatorName, dateCreated, isRandom, isOnePage, isImmediate, isPracticeMode, numQuestions);
 		session.setAttribute("quizNumber", quizNum);
 		session.setAttribute("currentQuestion", 1);
 		session.setAttribute("numQuestion", numQuestions);

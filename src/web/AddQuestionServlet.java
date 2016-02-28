@@ -52,7 +52,14 @@ public class AddQuestionServlet extends HttpServlet {
 		if (questionType.equals("fill-in-blank")) {
 			questionText = request.getParameter("textBefore") + "_____" + request.getParameter("textAfter");
 		}
-		int quesNumber = QzManager.addQuestion(quizNumber, questionType, questionText);
+		
+		int quesNumber;
+		if (questionType.equals("multiple-answer-unordered")) {
+			int numSlots = Integer.parseInt(request.getParameter("numSlots"));
+			quesNumber = QzManager.addUnorderedQuestion(quizNumber, questionType, questionText, numSlots);
+		} else {
+			quesNumber = QzManager.addQuestion(quizNumber, questionType, questionText);
+		}
 		
 		request.setAttribute("questionNumber", quesNumber);
 		request.setAttribute("questionText", questionText);

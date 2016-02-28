@@ -55,12 +55,7 @@ public class MultiplePageServlet extends HttpServlet {
 		anslist.add(userAnswer);
 		currentQuiz.setAnswers(currentQuiz.getCurrentQuestionNumber(), anslist);
 		
-		if (token.equals("Previous")) {
-			currentQuiz.setPreviousQuestionNumber();
-			session.setAttribute("currentQuizQuestion", currentQuizQuestion-1);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("MultiplePageQuizPlay.jsp");
-			dispatcher.forward(request, response);
-		} else if (token.equals("Next")) {
+		if (token.equals("Next")) {
 			currentQuiz.setNextQuestionNumber();
 			session.setAttribute("currentQuizQuestion", currentQuizQuestion+1);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("MultiplePageQuizPlay.jsp");
